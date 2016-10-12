@@ -1,26 +1,25 @@
-var app = angular.module('miniRouting', ['ngRoute'])
+var app = angular.module('miniRouting', ['ui.router'])
 
-app.config(function($routeProvider){
+app.config(function($stateProvider, $urlRouterProvider){
 
-	$routeProvider
-	  .when ('/', {
+	$stateProvider
+	  .state ('home', {
 	  	templateUrl: 'js/home/homeTmpl.html',
 	  	controller: 'homeCtrl'
 	  })
 
-	$routeProvider
-	  .when ('/settings', {
+	  .state ('settings', {
 	  	templateUrl: 'js/settings/settingsTmpl.html',
 	  	controller: 'settingsCtrl'
-	  })  
-
-	$routeProvider
-	  .when ('/products/:id', {
-	  	templateUrl: '/js/products/productsTmpl.html',
-	  	controller: 'productsCtrl'
 	  })
 
-	.otherwise({
-		redirectTo: '/'
-	})
+	  .state ('products', {
+			url: '/products/:id',
+	  	templateUrl: '/js/products/productsTmpl.html',
+	  	controller: 'productsCtrl'
+	  });
+
+	$urlRouterProvider
+		.otherwise('/');
+
 });
